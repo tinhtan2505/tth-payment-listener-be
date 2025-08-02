@@ -1,13 +1,13 @@
-package tth_payment_listener_be.tth_payment_listener_be;
+package tth_group.payment_listener;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TthPaymentListenerBeApplication {
+public class PaymentListenerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TthPaymentListenerBeApplication.class, args);
+		SpringApplication.run(PaymentListenerApplication.class, args);
 	}
 
 }

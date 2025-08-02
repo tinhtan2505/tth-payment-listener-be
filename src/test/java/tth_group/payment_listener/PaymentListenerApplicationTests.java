@@ -1,10 +1,10 @@
-package tth_payment_listener_be.tth_payment_listener_be;
+package tth_group.payment_listener;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TthPaymentListenerBeApplicationTests {
+class PaymentListenerApplicationTests {
 
 	@Test
 	void contextLoads() {
