@@ -1,9 +1,8 @@
 package tth_group.payment_listener.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
-import nqt.my_resurrection_be.authentication.dto.SignupRequest;
-import nqt.my_resurrection_be.authentication.dto.SignupResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import tth_group.payment_listener.authentication.dto.SignupRequest;
+import tth_group.payment_listener.authentication.dto.SignupResponse;
 import tth_group.payment_listener.entity.User;
 import tth_group.payment_listener.repository.UserRepository;
 
@@ -54,7 +55,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/signup")
+    @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
         // Kiểm tra xem username đã tồn tại chưa
         var a = userRepository.existsByUsername(signupRequest.getUsername());

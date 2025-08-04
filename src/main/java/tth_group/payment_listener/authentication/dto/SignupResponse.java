@@ -1,12 +1,13 @@
-package nqt.my_resurrection_be.authentication.dto;
+package tth_group.payment_listener.authentication.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignupResponse {
     private String message;
-
-    public SignupResponse(String message) {
-        this.message = message;
-    }
-
-    // Getter
 }
 
