@@ -15,6 +15,7 @@ import tth_group.payment_listener.authentication.dto.SignupRequest;
 import tth_group.payment_listener.authentication.dto.SignupResponse;
 import tth_group.payment_listener.entity.User;
 import tth_group.payment_listener.repository.UserRepository;
+import tth_group.payment_listener.security.JwtTokenProvider;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -111,6 +112,20 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid or expired");
         }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missing or invalid Authorization header");
+        }
+
+        String token = authHeader.substring(7); // Bỏ "Bearer "
+        jwtTokenProvider.blacklistToken(token); // Đưa vào blacklist
+
+        return ResponseEntity.ok("Logged out successfully");
     }
 }
 

@@ -1,4 +1,4 @@
-package tth_group.payment_listener.authentication;
+package tth_group.payment_listener.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -11,9 +11,13 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
-
+    private final TokenBlacklist tokenBlacklist;
     private SecretKey jwtSecret = Keys.secretKeyFor(SignatureAlgorithm.HS512);
     private final int jwtExpirationMs = 86400000; // 24 hours
+
+    public JwtTokenProvider(TokenBlacklist tokenBlacklist) {
+        this.tokenBlacklist = tokenBlacklist;
+    }
 
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -27,6 +31,11 @@ public class JwtTokenProvider {
 
     // Validate JWT token
     public boolean validateToken(String token) {
+        if (tokenBlacklist.contains(token)) {
+            System.out.println("Token đã bị thu hồi (đã logout)");
+            return false;
+        }
+
         try {
             Jwts.parserBuilder()
                     .setSigningKey(jwtSecret)
@@ -55,6 +64,9 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+    public void blacklistToken(String token) {
+        tokenBlacklist.add(token);
     }
 }
 
