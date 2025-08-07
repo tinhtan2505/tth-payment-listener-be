@@ -73,11 +73,6 @@ public class VnpayCallbackRequest {
 
     @JsonProperty("addData")
     private List<QrCodeItemPayment> addData;
-    /**
-     * Danh sách chi tiết sản phẩm/dịch vụ (Optional)
-     * QrCodeItemPayment chứa các trường:
-     *   productId, amount, tipAndFee, ccy, qty, note :contentReference[oaicite:5]{index=5}
-     */
 
     @JsonProperty("checksum")
     private String checksum;          // MD5 của chuỗi nối theo công thức (Required)
