@@ -1,12 +1,15 @@
 package tth_group.payment_listener.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tth_group.payment_listener.dto.request.VnpayCallbackRequest;
 import tth_group.payment_listener.dto.response.VnpayCallbackResponse;
+import tth_group.payment_listener.service.impl.TblVnpayCallbackService;
+import tth_group.payment_listener.service.iservices.ITblVnpayCallbackService;
 import tth_group.payment_listener.utils.ThanhToanOnlineUtils;
 
 import java.util.HashMap;
@@ -20,12 +23,16 @@ public class PaymentListenerBidvController {
     @Value("${vnpay.secretKey}")
     private String secretKey;
 
+    @Autowired
+    private ITblVnpayCallbackService iTblVnpayCallbackService;
+
     @PostMapping(
             value = "thanhtoanqrcode",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VnpayCallbackResponse> onPaymentResult(
             @RequestBody VnpayCallbackRequest req) {
+        iTblVnpayCallbackService.saveCallback(req);
         // 1) Tính lại checksum
         String raw = String.join("|",
                 req.getCode(), req.getMsgType(), req.getTxnId(), req.getQrTrace(),

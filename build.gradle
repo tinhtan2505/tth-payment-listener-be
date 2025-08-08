@@ -18,35 +18,34 @@ repositories {
 }
 
 dependencies {
-	dependencies {
-		// Spring Boot Core
-		implementation 'org.springframework.boot:spring-boot-starter'
-		implementation 'org.springframework.boot:spring-boot-starter-web'
-		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-		implementation 'org.springframework.boot:spring-boot-starter-security'
-		implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// Spring Boot
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-		// Cơ sở dữ liệu
-		runtimeOnly 'org.postgresql:postgresql:42.7.3'
+	// PostgreSQL JDBC driver -> ĐỂ LÀ implementation (không dùng runtimeOnly)
+	implementation 'org.postgresql:postgresql:42.7.4'
 
-		// JWT (Java JWT - JJWT)
-		implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-		runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-		runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-		// Swagger / OpenAPI (dùng đúng bản mới cho Spring Boot 3)
-		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+	// OpenAPI
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 
-		// Lombok
-		compileOnly 'org.projectlombok:lombok:1.18.34'
-		annotationProcessor 'org.projectlombok:lombok:1.18.34'
+	// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.34'
+	annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
-		// Test
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	}
+	// OAuth2 Resource Server (nếu cần)
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
-
+	// Test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
