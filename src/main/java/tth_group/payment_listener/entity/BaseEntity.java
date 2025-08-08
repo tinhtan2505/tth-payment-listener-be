@@ -33,12 +33,12 @@ public abstract class BaseEntity implements Serializable {
     private boolean active = true;
 
     @CreatedBy
-    @Column(name = "nguoi_tao")
-    private String createdBy;
+    @Column(name = "nguoi_tao", updatable = false/*, columnDefinition = "uuid"*/)
+    private java.util.UUID createdBy;
 
     @LastModifiedBy
-    @Column(name = "nguoi_sua")
-    private String updatedBy;
+    @Column(name = "nguoi_sua"/*, columnDefinition = "uuid"*/)
+    private java.util.UUID updatedBy;
 
     /** Soft delete: đánh dấu đã xóa và vô hiệu hóa. */
     public void markDeleted() {
