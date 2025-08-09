@@ -48,9 +48,10 @@ public class SecurityConfig {
                                         "/swagger-resources/**",
                                         "/swagger-ui.html",
                                         "/webjars/**").permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults())); // Cấu hình UserDetailsService
+                .userDetailsService(userDetailsService);
+//                .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults())); // Cấu hình UserDetailsService
 
         return http.build();
     }

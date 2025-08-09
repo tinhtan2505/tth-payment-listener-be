@@ -1,0 +1,12 @@
+server:
+  port: 8888
+
+his:
+  base-url: http://localhost:8080
+
+#spring:
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8888/realms/myrealm

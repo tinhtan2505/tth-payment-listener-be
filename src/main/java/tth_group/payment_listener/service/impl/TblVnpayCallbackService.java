@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tth_group.payment_listener.dto.request.VnpayCallbackRequest;
+import tth_group.payment_listener.dto.response.VnpayCallbackResponse;
 import tth_group.payment_listener.entity.TblVnpayCallback;
 import tth_group.payment_listener.repository.TblVnpayCallbackRepository;
 import tth_group.payment_listener.service.iservices.ITblVnpayCallbackService;
@@ -13,6 +14,7 @@ import tth_group.payment_listener.service.iservices.ITblVnpayCallbackService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -58,5 +60,19 @@ public class TblVnpayCallbackService implements ITblVnpayCallbackService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateKetQua(UUID id, VnpayCallbackResponse ketQua) {
+//        TblVnpayCallback entity = repository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("callback not found: " + id));
+        String json;
+        try {
+            json = objectMapper.writeValueAsString(ketQua);
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            throw new IllegalStateException("Serialize ketQua failed", e);
+        }
+        repository.updateKetQuaJson(id, json);
     }
 }
