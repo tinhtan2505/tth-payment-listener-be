@@ -98,15 +98,15 @@ public class PaymentListenerBidvController {
         else {
             // Tùy quy ước, có thể trả "00" ack hay phản ánh mã lỗi
             String respChecksum = ThanhToanOnlineUtils.generateSecureCode("00" + secretKey);
-            resp = new VnpayCallbackResponse("00", "đã nhận kết quả lỗi từ VNPAY", Map.of("code", req.getCode()), respChecksum);
-            status = HttpStatus.OK; // thường vẫn 200 để ACK
+            resp = new VnpayCallbackResponse("88", "VNPAY báo lỗi code != 00", Map.of("code", req.getCode()), respChecksum);
+            status = HttpStatus.BAD_REQUEST; // thường vẫn 200 để ACK
         }
 
         // GHI ketQua vào DB bất kể status
         try {
             iTblVnpayCallbackService.updateKetQua(rec.getId(), resp);
-        } catch (Exception e) {
-            System.out.println("");
+            qrPaymentClient.sendPaymentResult(resp);
+        } catch (Exception _) {
         }
 
         return ResponseEntity.status(status).body(resp);
